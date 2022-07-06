@@ -1,0 +1,26 @@
+filebeat.inputs:
+- type: filestream
+  fields:
+    type: error
+    service: node-ms-service
+  enabled: true
+  paths: 
+    - /app/error.log
+- type: filestream
+  fields:
+    type: info
+    service: node-ms-service
+  enabled: true
+  paths: 
+    - /app/info.log
+
+output.elasticsearch:
+  hosts: ["es:9200"]
+  username: "elastic"
+  password: "changeme"
+
+processors:
+  - add_host_metadata: ~
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~

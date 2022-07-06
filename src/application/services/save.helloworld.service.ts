@@ -4,6 +4,7 @@ import SaveHelloWorldUseCase from '../ports/usecases/save.helloworld.usecase';
 import HelloWorldRepository from '../ports/resources/helloworld.repository';
 import { SaveHelloWorldResponse } from '../../shared/types/response.types';
 import Message from '../domain/message';
+import { infoLogger } from '../../shared/logger';
 
 @injectable()
 export default class SaveHelloWorldService implements SaveHelloWorldUseCase {
@@ -21,6 +22,7 @@ export default class SaveHelloWorldService implements SaveHelloWorldUseCase {
     if (saveHelloWorldResponse.isError())
       return error(saveHelloWorldResponse.value);
 
+    infoLogger.info('Message successfully registered!');
     return success(saveHelloWorldResponse.value);
   }
 }
